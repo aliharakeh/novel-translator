@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { Send } from "lucide-react";
+import { useState } from "react";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -23,7 +23,7 @@ export function ChatInput({ onSendMessage, isLoading }: ChatInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
+    <form onSubmit={handleSubmit} className="relative flex-1">
       <Textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}

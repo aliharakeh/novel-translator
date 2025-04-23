@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { SettingsDialog } from "@/components/settings-dialog";
 import { ChatInput } from "@/components/chat-input";
 import { ResponseCard } from "@/components/response-card";
+import { SettingsDialog } from "@/components/settings-dialog";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
 import { useSystemPrompt } from "@/hooks/use-system-prompt";
 import geminiService from "@/lib/gemini-service";
 import { MessageCircle } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
   const { systemPrompt, isLoaded } = useSystemPrompt();
@@ -38,6 +39,11 @@ export default function Home() {
     }
   };
 
+  // Function to handle scrolling
+  const handleScroll = (amount: number) => {
+    window.scrollBy({ top: amount, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-10 backdrop-blur-md bg-background/80 border-b">
@@ -60,8 +66,16 @@ export default function Home() {
       </main>
       
       <footer className="sticky bottom-0 z-10 backdrop-blur-md bg-background/80 border-t py-4">
-        <div className="container max-w-3xl mx-auto">
+        <div className="container max-w-5xl mx-auto flex justify-between items-center">
           <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+          <div className="flex space-x-2 ml-4">
+            <Button onClick={() => handleScroll(-300)} variant="outline" size="icon">
+              ↑
+            </Button>
+            <Button onClick={() => handleScroll(300)} variant="outline" size="icon">
+              ↓
+            </Button>
+          </div>
         </div>
       </footer>
     </div>
