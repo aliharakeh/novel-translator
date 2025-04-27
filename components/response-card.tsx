@@ -10,11 +10,30 @@ interface ResponseCardProps {
 }
 
 export function ResponseCard({ response, isLoading = false }: ResponseCardProps) {
-    // Format the response to add line breaks between sentences
     const formatResponse = (text: string) => {
-        return text
-            .split(/(?<=[.])\s+/)
-            .filter(sentence => sentence.trim())
+        const sentences: string[] = [];
+        let currentSentence = '';
+        let insideQuotes = false;
+
+        for (let i = 0; i < text.length; i++) {
+            currentSentence += text[i];
+
+            if (text[i] === '"' || text[i] === '`') {
+                insideQuotes = !insideQuotes;
+            }
+
+            if (!insideQuotes && text[i] === '.' && (i === text.length - 1 || text[i + 1] === ' ')) {
+                sentences.push(currentSentence.trim());
+                currentSentence = '';
+            }
+        }
+
+        if (currentSentence.trim()) {
+            sentences.push(currentSentence.trim());
+        }
+
+        return sentences
+            .map(sentence => sentence.replace(/["`]/g, '🔸').replace(/[\[\]]/g, '🔹'))
             .join('\n\n');
     };
 
