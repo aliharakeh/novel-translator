@@ -6,6 +6,14 @@ export interface GeminiResponse {
     error?: string;
 }
 
+export const AVAILABLE_MODELS = [
+    { id: 'gemini-2.5-flash-preview-04-17', name: 'Gemini 2.5 Flash Preview 04-17' },
+    { id: 'gemini-2.0-flash-lite', name: 'Gemini 2.0 Flash Lite' },
+    { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
+    { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
+    { id: 'gemini-1.5-flash-8b', name: 'Gemini 1.5 Flash 8b' },
+];
+
 class GeminiService {
     private apiKey: string | null = null;
     private model: string = 'gemini-2.0-flash-lite';
@@ -14,10 +22,7 @@ class GeminiService {
     constructor() {
         // API key will be set by the user through the UI
         if (typeof window !== 'undefined') {
-            const savedModel = localStorage.getItem('gemini_model');
-            if (savedModel) {
-                this.model = savedModel;
-            }
+            this.model = localStorage.getItem('gemini_model') ?? 'gemini-2.0-flash-lite';
         }
     }
 
