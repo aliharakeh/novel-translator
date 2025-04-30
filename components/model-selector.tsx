@@ -8,15 +8,9 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/hooks/use-toast';
-import geminiService from '@/lib/gemini-service';
+import geminiService, { AVAILABLE_MODELS } from '@/lib/gemini-service';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-
-const AVAILABLE_MODELS = [
-    { id: 'gemini-2.0-flash-lite', name: 'Gemini 2.0 Flash Lite' },
-    { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
-    { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
-];
 
 export function ModelSelector() {
     const [currentModel, setCurrentModel] = useState(geminiService.getModel());
